@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+    <!--被CDN 陰-->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-cookies.js"></script>
+    <script src="http://angular-ui.github.io/ui-router/release/angular-ui-router.min.js"></script>
+
+
+    <script src="http://localhost:80/angularjs/js/controller.js"></script>
+    <link href="http://localhost:80/angularjs/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body ng-app="app" >
+    <div ui-sref="home" ui-sref-active="active" >
+    </div>
+    <div ui-view></div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+    <div class="b-list-wrap">
+        <table class="b-list">
+            <thead>
+            <th colspan="2" style="color: #464646">
+                <h2>留言板welcome {{user}}{{person}}
+                    <div>
+                        <p>{{person}}</p>
+                    </div>
+                </h2>
+            </th>
+            <th style="text-align: center" id="id">
+                <a ui-sref="login">{{ x.id }}登入</a></th>
+            </thead>
+            <tbody>
+            <tr class="b-list__head">
+                <td colspan="1" class="b-list__filter">主題</td>
+                <td>作者</td>
+                <td>時間</td>
+            </tr>
+
+            <tr class="b-list__row" ng-repeat="x in users">
+                <td class="b-list__main">
+                    <a ui-sref="detail({'id':x.w_seq})" class="b-list__main__title" >
+                        {{ x.w_title }}
+                    </a>
+                    <!--JS 的 不過無法跳頁後又帶值
+                    <td class="b-list__main" ng-controller="Myctrl">
+                    <a href="" class="b-list__main__title" ng-model="op" ng-init="op=x.w_seq" ng-click="main()">
+                        {{ x.w_title }}
+                    </a>-->
+                </td>
+                <td class="b-list__count">
+                    <p class="b-list__count__user">
+                        {{ x.w_id }}
+                    </p>
+                </td>
+                <td class="b-list__time">
+                    <p class="b-list__time__edittime">
+                        {{ x.w_date }}
+                    </p>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="b-list-wrap" ng-controller="MyInsert" style="width: 50%;margin: 5% 25% 0% 25%;">
+        <table class="b-list" >
+            <tbody>
+            <tr class="b-list__head">
+                <td colspan="2" class="b-list__filter">發表新文章</td>
+            </tr>
+            <tr>
+                <td class="b-list__main">
+                    <input type="text" placeholder="輸入主題" ng-model="title" >
+                </td>
+            </tr>
+            <tr>
+                <td class="b-list__main"  style="text-align: left">
+                    <textarea rows="15" cols="85" placeholder="輸入內容" ng-model="word" style="width: 100%"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="" style="text-align: center">
+                    <button type="button" ng-click="add()">送出</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
