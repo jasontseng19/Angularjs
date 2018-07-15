@@ -12,7 +12,7 @@ $dataJson = file_get_contents("php://input");   //获取POST原始数据（JSON�
 $data = json_decode($dataJson, true);   //将JSON数据强制转换为数组对象
 $id = $data['id'];
 
-$link = mysqli_connect("localhost","root","","ang_mess");
+$link = mysqli_connect("localhost","root","A12345678","ang_mess");
     mysqli_query($link,"SET NAMES UTF8");
 
 $sql = "SELECT * FROM  word WHERE w_seq = '$id';";

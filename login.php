@@ -25,9 +25,6 @@ if(mysqli_num_rows($ro) > 0 ){
     $response['id'] = md5(uniqid());
     $_SESSION['id'] = $response['id'];
     $_SESSION['user'] = $m_account;
-    $response['user'] = 'admin';
-    $response['useruniqueid'] = md5(uniqid());
-    $_SESSION['useruniqueid'] = $response['useruniqueid'];
 }else{
     $response['status'] = 'error';
 };
