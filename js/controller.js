@@ -1,17 +1,18 @@
 var app = angular.module('app', ['ui.router','ngCookies'] );
 
-app.config( function( $stateProvider, $urlRouterProvider ) {
+app.config( function( $stateProvider, $urlRouterProvider, $locationProvider) {
 
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/angularjs/index.html');
+    $locationProvider.html5Mode(true);
 
     // 定義 $state
     $stateProvider
         .state('home', {
-            url: '',
-            templateUrl: 'list.html',
+            url: '/angularjs/index.html',
+            templateUrl: '/angularjs/list.html',
             controller:(function($scope, $http) {
                 $scope.users = "";
-                $http.get("list.php")
+                $http.get("/angularjs/list.php")
                     .success(function (resp) {$scope.users = resp;});
             })
         })
@@ -25,26 +26,26 @@ app.config( function( $stateProvider, $urlRouterProvider ) {
             },
             url: '/dashboard',
             params: {'user': null},
-            templateUrl: 'list.html',
+            templateUrl: '/angularjs/list.html',
             controller:(function($scope,user,$http) {
                 $scope.out = '登出';
                 $scope.admin = user.getName();
                 $scope.users = "";
-                $http.get("list.php")
+                $http.get("/angularjs/list.php")
                     .success(function (resp) {$scope.users = resp;});
             })
 
         })
         .state('login', {
-            url: '/login',
-            templateUrl: 'login.html',
+            url: '/angularjs/login',
+            templateUrl: '/angularjs/login.html',
             controller:('login', function($scope, $http,$location,user) {
                 $scope.login = function()
                 {
                     var m_account = $scope.m_account ;
                     var m_pw = $scope.m_pw ;
                     $http({
-                        url:'./login.php',
+                        url:'/angularjs/login.php',
                         method: 'POST',
                         headers:{
                             'Content-Type':'application/x-www-form-urlencoded'
@@ -53,8 +54,7 @@ app.config( function( $stateProvider, $urlRouterProvider ) {
                     }).then(function (response)
                             {
                                 if(response.data.status == 'loggedin'){
-                                    user.userLoggedIn();
-                                    user.setName(response.data.user);
+                                    user.saveData(response.data);
                                     $location.path('dashboard');
                                 }else{
                                     alert("帳號或密碼錯誤");
@@ -69,45 +69,44 @@ app.config( function( $stateProvider, $urlRouterProvider ) {
             })
         })
         .state('logout', {
-            controller:(function($scope, $http,$state) {
-                $scope.users = "";
-                $http.get("logout.php")
-                    .success(function (resp) {
-                        $state.go('home');
-                    });
-            })
+            resolve: {
+                deadResolve: function($location, user) {
+                    user.clearData();
+                    $location.path('login');
+                }
+            }
         })
         .state('up', {
-            url: '',
+            url: '/angularjs/up',
             params:{'id':null},
-            templateUrl: 'up.html',
+            templateUrl: '/angularjs/up.html',
             controller:('title', function ($scope, $stateParams,$http) {
                 $scope.id = ($stateParams.id);
                 $scope.main = "";
-                $http.post("main.php",$stateParams)
+                $http.post("/angularjs/main.php",$stateParams)
                     .success(function (resp) {
                         $scope.main = resp;
                     });
                 $scope.main2 = "";
-                $http.post("main2.php",$stateParams)
+                $http.post("/angularjs/main2.php",$stateParams)
                     .success(function (resp) {
                         $scope.main2 = resp;
                     });
             })
         })
         .state('detail', {
-            url: '',
+            url: '/angularjs/detail',
             params:{'id':null},
-            templateUrl: 'main.html',
+            templateUrl: '/angularjs/main.html',
             controller:('title', function ($scope, $stateParams,$http) {
                 $scope.id = ($stateParams.id);
                     $scope.main = "";
-                    $http.post("main.php",$stateParams)
+                    $http.post("/angularjs/main.php",$stateParams)
                         .success(function (resp) {
                             $scope.main = resp;
                         });
                 $scope.main2 = "";
-                $http.post("main2.php",$stateParams)
+                $http.post("/angularjs/main2.php",$stateParams)
                     .success(function (resp) {
                         $scope.main2 = resp;
                     });
@@ -121,9 +120,7 @@ app.service('user',function () {
     var username;
     var loggedin = false;
     var id;
-    this.setName = function(name) {
-        username = name;
-    };
+
     this.getName = function() {
         return username;
     };
@@ -134,11 +131,31 @@ app.service('user',function () {
         return id;
     };
     this.isUserLoggedIn = function() {
+        if(!!localStorage.getItem('login')) {
+            loggedin = true;
+            var data = JSON.parse(localStorage.getItem('login'));
+            username = data.username;
+            id = data.id;
+        }
         return loggedin;
     };
-    this.userLoggedIn = function() {
+
+    this.saveData = function (data) {
+        username = data.user;
+        id = data.id;
         loggedin = true;
+        localStorage.setItem('login', JSON.stringify({
+            username: username,
+            id: id
+        }));
     };
+
+    this.clearData = function(){
+        localStorage.removeItem('login');
+        username = "";
+        id = "";
+        loggedin = false;
+    }
 })
 
 

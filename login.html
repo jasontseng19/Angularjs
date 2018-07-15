@@ -6,8 +6,8 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.min.js"></script>
-    <script src="js/controller.js"></script>
-    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <script src="http://localhost:80/angularjs/js/controller.js"></script>
+    <link href="http://localhost:80/angularjs/css/style.css" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -31,8 +31,12 @@
                     <button type="button" id="loginbutton" class="btn btn-lg btn-primary btn-block" ng-click="login()">
                         <span id="logtext">登入</span>
                     </button>
-                    <button type="button" class="btn btn-lg btn-primary btn-block"  onclick="window.history.go(-1)">
-                        <span id="1">取消</span>
+                    <button type="button" class="btn btn-lg btn-primary btn-block"  >
+                        <span id="1">
+                            <div ui-sref="home" ui-sref-active="active" >
+                                取消
+                            </div>
+                        </span>
                     </button>
                 </fieldset>
 

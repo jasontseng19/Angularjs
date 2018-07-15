@@ -22,8 +22,8 @@ $ro = mysqli_query($link, $sql);
 if(mysqli_num_rows($ro) > 0 ){
     $response['status'] = 'loggedin';
     $response['user'] = $m_account;
-    $response['useruniqueid'] = md5(uniqid());
-    $_SESSION['useruniqueid'] = $response['useruniqueid'];
+    $response['id'] = md5(uniqid());
+    $_SESSION['id'] = $response['id'];
     $_SESSION['user'] = $m_account;
 }else{
     $response['status'] = 'error';
