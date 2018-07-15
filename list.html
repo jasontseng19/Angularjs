@@ -2,14 +2,16 @@
         <table class="b-list">
             <thead>
             <th colspan="2" style="color: #464646">
-                <h2>留言板welcome {{user}}{{person}}
+                <h2>留言板welcome {{admin}}
                     <div>
                         <p>{{person}}</p>
                     </div>
                 </h2>
             </th>
             <th style="text-align: center" id="id">
-                <a ui-sref="login">{{ x.id }}登入</a></th>
+                <a ui-sref="login" ng-bind="admin || '登入'"></a>
+                <a ui-sref="logout" ng-model="out" ng-bind="out || ''"></a>
+            </th>
             </thead>
             <tbody>
             <tr class="b-list__head">

@@ -1,6 +1,6 @@
 var app = angular.module('app', ['ui.router','ngCookies'] );
 
-app.config( function( $stateProvider, $urlRouterProvider ,$locationProvider) {
+app.config( function( $stateProvider, $urlRouterProvider ) {
 
     $urlRouterProvider.otherwise('/');
 
@@ -25,8 +25,9 @@ app.config( function( $stateProvider, $urlRouterProvider ,$locationProvider) {
             },
             url: '/dashboard',
             params: {'user': null},
-            templateUrl: 'dashboard.html',
+            templateUrl: 'list.html',
             controller:(function($scope,user,$http) {
+                $scope.out = '登出';
                 $scope.admin = user.getName();
                 $scope.users = "";
                 $http.get("list.php")
@@ -37,7 +38,7 @@ app.config( function( $stateProvider, $urlRouterProvider ,$locationProvider) {
         .state('login', {
             url: '/login',
             templateUrl: 'login.html',
-            controller:('login', function($scope, $http,$state,user) {
+            controller:('login', function($scope, $http,$location,user) {
                 $scope.login = function()
                 {
                     var m_account = $scope.m_account ;
@@ -54,7 +55,7 @@ app.config( function( $stateProvider, $urlRouterProvider ,$locationProvider) {
                                 if(response.data.status == 'loggedin'){
                                     user.userLoggedIn();
                                     user.setName(response.data.user);
-                                    $state.go('dashboard');
+                                    $location.path('dashboard');
                                 }else{
                                     alert("帳號或密碼錯誤");
                                 }
@@ -65,6 +66,15 @@ app.config( function( $stateProvider, $urlRouterProvider ,$locationProvider) {
                                 alert("帳號或密碼錯誤！") ;
                             }) ;
                 }
+            })
+        })
+        .state('logout', {
+            controller:(function($scope, $http,$state) {
+                $scope.users = "";
+                $http.get("logout.php")
+                    .success(function (resp) {
+                        $state.go('home');
+                    });
             })
         })
         .state('up', {
@@ -211,4 +221,3 @@ app.controller('demo', function ($cookies, $scope) {
     $scope.person = $cookies.myFavorite;
 })
 */
-$locationProvider.html5Mode(true);
