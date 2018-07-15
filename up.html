@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+    <!--被CDN 陰-->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.min.js"></script>
+    <script src="js/controller.js"></script>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="https://i2.bahamut.com.tw/css/forum.css?v=1531191323" rel="stylesheet" type="text/css">
+</head>
+<body >
+<div class="c-section__main c-post " ng-controller="up" ng-repeat="v in main">
+    <div class="c-post__header">
+        <h1 class="c-post__header__title ">
+            現在標題：{{v.w_title}}<br>
+            <input type="text" ng-model="title" >
+        </h1>
+        <div class="c-post__header__author">
+            <a href="//home.gamer.com.tw/cold21xx" class="username" >{{v.w_id}}</a>
+        </div>
+        <div class="c-post__header__info">
+            <div class="edittime" >{{v.w_date}}</div>
+        </div>
+    </div>
+    <div class="c-post__body">
+        <article class="c-article FM-P2" id="cf67370">
+            <div class="c-article__content">
+                <h1>
+                    <font size="4">現在內文：{{v.w_word}}</font><br>
+                </h1>
+                    <textarea rows="10" cols="45" ng-model="word">
+
+                    </textarea>
+            </div>
+        </article>
+    </div>
+    <div class="c-post__footer c-reply">
+    <div class="c-reply__item" ng-repeat="x in main2">
+
+        <div class="reply-content">
+            <div class="reply-content__user" >{{x.w2_id}}</div>
+            <article class="reply-content__article c-article ">
+                <span data-formatted="yes">{{x.w2_word}}</span>
+            </article>
+
+            <div class="reply-content__footer">
+                <div class="edittime">{{x.w2_date}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="c-reply__editor">
+        <button type="button" class="btn btn-lg btn-primary btn-block" style="text-align: right;margin-top: 10px" ng-click="update()">
+            <span id="1">送出</span>
+        </button>
+</div>
+</div>
+</div>
+
+</body>
+</html>
