@@ -3,12 +3,19 @@
             <thead>
             <th colspan="2" style="color: #464646">
                 <h2>
-                    留言板welcome {{admin}}
+                    留言板
                 </h2>
             </th>
             <th style="text-align: center" id="id">
-                <a ui-sref="login" ng-bind="admin || '登入'"></a>
-                <a ui-sref="logout"  ng-bind="out || ''"></a>
+                <div ng-controller="logbtn">
+
+                    <button type="button" class="btn btn-lg btn-primary btn-block" ng-if="in" style="text-align: right;margin-top: 10px" >
+                        <span id="1"><a ui-sref="login" ng-bind="admin || '登入'"></a></span>
+                    </button>
+                    <button type="button" class="btn btn-lg btn-primary btn-block" ng-if="out" style="text-align: right;margin-top: 10px;width: 110px">
+                        {{admin}}  <span id="1"><a ui-sref="logout"  ng-bind="out || ''"></a></span>
+                    </button>
+                </div>
             </th>
             </thead>
             <tbody>
@@ -23,11 +30,6 @@
                     <a ui-sref="detail({'id':x.w_seq})" class="b-list__main__title" >
                         {{ x.w_title }}
                     </a>
-                    <!--JS 的 不過無法跳頁後又帶值
-                    <td class="b-list__main" ng-controller="Myctrl">
-                    <a href="" class="b-list__main__title" ng-model="op" ng-init="op=x.w_seq" ng-click="main()">
-                        {{ x.w_title }}
-                    </a>-->
                 </td>
                 <td class="b-list__count">
                     <p class="b-list__count__user">

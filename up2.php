@@ -12,13 +12,12 @@ try{
 
 
 
-$dataJson = file_get_contents("php://input");   //获取POST原始数据（JSON）
-$data = json_decode($dataJson, true);   //将JSON数据强制转换为数组对象
-$title = $data['title'];
+$dataJson = file_get_contents("php://input");
+$data = json_decode($dataJson, true);
 $word = $data['word'];
 $id = $data['id'];
 
-$sql = "UPDATE word SET w_title = '$title' , w_word = '$word' WHERE w_seq = '$id'";
+$sql = "UPDATE word2 SET w2_word = '$word' WHERE w2_seq = '$id'";
 $result = $link->exec($sql);
 echo '{"success":'.$result.'}';
 

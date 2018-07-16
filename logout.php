@@ -2,6 +2,9 @@
 session_start();
 session_destroy();
 session_commit();
-//header("location:index.html");
-header("location:index.php");
+$_SESSION['id'] = NULL;
+$_SESSION['user'] = NULL;
+
+unset($_SESSION['id']);
+unset($_SESSION['user']);
 ?>

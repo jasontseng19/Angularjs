@@ -2,7 +2,7 @@
 //session_start();
 
     try{
-         $link = new PDO("mysql:host=localhost;dbname=ang_mess", "root", "A12345678");
+         $link = new PDO("mysql:host=localhost;dbname=ang_mess", "root", "");
          $link->query("SET NAMES UTF8");
     }catch(PDOException $e){
          die("資料庫連結失敗".$e->getMessage());
